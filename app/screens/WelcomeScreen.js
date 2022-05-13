@@ -6,16 +6,23 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
+import * as SecureStore from "expo-secure-store";
+import stringifySafe from "react-native/Libraries/Utilities/stringifySafe";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+
+
 function WelcomeScreen({navigation}) {
-    return(
-        <SafeAreaView  style={styles.container}> 
-          <View>
-            <Text>
-                Goed gewerkt!
-            </Text>
-          </View>
-        </SafeAreaView>
-    );
+
+  return(
+      <SafeAreaView  style={styles.container}>
+        <View>
+          <Text>
+            Goed gewerkt!
+          </Text>
+        </View>
+      </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
