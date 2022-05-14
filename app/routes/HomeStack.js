@@ -5,7 +5,9 @@ import { createAppContainer } from 'react-navigation';
 import LoginScreen from '../screens/LoginScreen';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import SubjectViewer from '../screens/SubjectsViewer';
+import SubjectsViewerPromotoren from '../screens/SubjectsViewerPromotoren';
 import SubjectDetails from "../screens/SubjectDetails";
+import BoostStudent from "../screens/BoostStudent";
 
 const screens = {
 
@@ -18,7 +20,13 @@ const screens = {
     SubjectViewer: {
         screen: SubjectViewer,
         navigationOptions: {
-            headerShown: false,
+            headerShown:false
+        }
+    },
+    SubjectsViewerPromotoren: {
+        screen: SubjectsViewerPromotoren,
+        navigationOptions: {
+            headerShown:false
         }
     },
     SubjectDetails: {
@@ -33,6 +41,13 @@ const screens = {
             headerShown: false,
         }
     },
+    BoostStudent: {
+        screen: BoostStudent,
+        navigationOptions: {
+            headerShown: false,
+        }
+    },
+
 }
 
 const HomeStack = createStackNavigator(screens);

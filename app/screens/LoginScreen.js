@@ -52,37 +52,15 @@ function LoginScreen({navigation}) { //extends Component {
         const [password, setPasswordText] = React.useState(false);
 
         const loginUser  = () => {
-            NetworkService.login(username, password).then(r=>{
-                navigation.navigate('SubjectViewer');
-            }
-
-            )
-                .catch((error) => {
-                    console.log(error);
-                    LoginScreen.onLoginFail();
-                });
-            //if (bool===true) {navigation.navigate('SubjectViewer');}
-            /*console.log(username);
-            axios.post('http://192.168.178.181:8080/api/auth/login', {
-                username: username,
-                password: password
+            NetworkService.login(username, password).then(response=>{
+                const resp = response.data.roles;
+                if (resp.includes("ROLE_STUDENT")) navigation.navigate("SubjectViewer")
+                else if (resp.includes("ROLE_PROMOTOR")) navigation.navigate("SubjectsViewerPromotoren")
             })
-                //.then(response => console.log(response.data.username));
-                .then( (response) => {
-                    //save(response.data.accessToken,response.data.username);
-                    // App.newJWT(response.data.accessToken)
-                    deviceStorage.saveToken('token',response.data.accessToken)
-                        .then(r => {console.log(response.data,r)
-                        console.log(response.data.accessToken);
-                    deviceStorage.saveToken('mail',response.data.email)
-                        .then(r => console.log(response.data.email))
-                        navigation.navigate('SubjectViewer');
-                    })
-                })
                 .catch((error) => {
                     console.log(error);
                     onLoginFail();
-                });*/
+                });
         };
         const onLoginFail = () => {
             this.state.error = 'Login Failed';

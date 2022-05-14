@@ -32,9 +32,9 @@ const deviceStorage = {
             console.log('AsyncStorage Error: ' + error.message);
         }
     },
-    async loadSubjectName() {
+    async loadRole() {
         try {
-            const value = await AsyncStorage.getItem('subjectName');
+            const value = await AsyncStorage.getItem('role');
             if (value !== null) {
                 return value;
             } else {
