@@ -38,15 +38,17 @@ export default function SubjectsViewer({navigation}) {
 
 
 
-    const onPressHandler = async (name) => {
-        try {
+    const onPressHandler = async (i) => {
+        /*try {
             await deviceStorage.saveToken('subject',name).then(
             console.log(name))
             console.log(typeof name)
         } catch (error) {
             console.log(error);
-        }
-        navigation.navigate("SubjectDetails");
+        }*/
+        console.log("voor opslaan");
+        console.log(onderwerpen[i].name)
+        navigation.navigate("SubjectDetails",onderwerpen[i]);
     }
     const leftButton = (
         <SwipeButtonsContainer
@@ -65,7 +67,7 @@ export default function SubjectsViewer({navigation}) {
             </TouchableOpacity>
         </SwipeButtonsContainer>
     );
-    const rightButton = (name) => (
+    const rightButton = (i) => (
         <SwipeButtonsContainer
             style={{
                 alignSelf: 'center',
@@ -75,7 +77,7 @@ export default function SubjectsViewer({navigation}) {
             }}
         >
             <TouchableOpacity
-                onPress={async () => await onPressHandler(name).then(r => console.log("onpress"))}
+                onPress={async () => await onPressHandler(i)}
             >
                 <Icon name="questioncircleo" size={40} color="#004070" />
             </TouchableOpacity>
@@ -109,7 +111,7 @@ export default function SubjectsViewer({navigation}) {
                             swipeContainerStyle={styles.swipeContentContainerStyle}
                             leftButtons={leftButton}
                             key={i}
-                            rightButtons={rightButton(onderwerp.name)}
+                            rightButtons={rightButton(i)}
                         >
                             <Text key={i} style={styles.title}>
                                 {onderwerp.name}

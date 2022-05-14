@@ -39,23 +39,30 @@ export default function App() {
             jwt: this.loadJWT()
         });
     }
-
-    if (!jwt){
-        return(
-            <HomeStack newJWT={newJWT}
-                       options={{
-                           headerShown: false,
-                       }}
+        return (
+            <HomeStack
+                options={{
+                    headerShown: false,
+                }}
                 //style={{backgroundColor: '#d4e7f3'}}
             />
-        )}
-    else{
-        return (
-            <SubjectViewer jwt={jwt} deleteJWT={this.deleteJWT}/>
-        )
-    };
 
-}
+        );
+    }
+        /*<HomeStack newJWT={newJWT}
+                   options={{
+                       headerShown: false,
+                   }}
+            //style={{backgroundColor: '#d4e7f3'}}
+        />
+       /*
+else{
+    return (
+      <SubjectViewer jwt={jwt} deleteJWT={this.deleteJWT}/>
+    )
+};*/
+
+
 
 
 
