@@ -39,18 +39,9 @@ export default function SubjectsViewer({navigation}) {
 
 
     const onPressHandler = async (i) => {
-        /*try {
-            await deviceStorage.saveToken('subject',name).then(
-            console.log(name))
-            console.log(typeof name)
-        } catch (error) {
-            console.log(error);
-        }*/
-        console.log("voor opslaan");
-        console.log(onderwerpen[i].name)
         navigation.navigate("SubjectDetails",onderwerpen[i]);
     }
-    const leftButton = (
+    const leftButton = (promotor) => (
         <SwipeButtonsContainer
             style={{
                 alignSelf: 'center',
@@ -58,12 +49,17 @@ export default function SubjectsViewer({navigation}) {
                 flexDirection: 'column',
                 padding: 30,
             }}
-
         >
             <TouchableOpacity
-                onPress={() => console.log('shopping button clicked')}
+                onPress={() => {
+                    if (promotor !=null){
+                        Clipboard.setString(promotor.email);
+                        Alert.alert("Email copied to clipboard!")
+                    }else Alert.alert("There is no promotor for this subject yet")
+
+                }}
             >
-                <Icon name="shoppingcart" size={40} color="#004070" />
+                <Icon name="mail" size={40} color="#004070" />
             </TouchableOpacity>
         </SwipeButtonsContainer>
     );
@@ -80,17 +76,6 @@ export default function SubjectsViewer({navigation}) {
                 onPress={async () => await onPressHandler(i)}
             >
                 <Icon name="questioncircleo" size={40} color="#004070" />
-            </TouchableOpacity>
-            <Text>
-                {"\n"}
-            </Text>
-            <TouchableOpacity
-                onPress={() => {
-                    Clipboard.setString('mail@mail.com');
-                    Alert.alert("Email copied to clipboard!")
-                }}
-            >
-                <Icon name="mail" size={40} color="#004070" />
             </TouchableOpacity>
         </SwipeButtonsContainer>
     );
@@ -109,7 +94,7 @@ export default function SubjectsViewer({navigation}) {
                         <SwipeItem
                             style={styles.button}
                             swipeContainerStyle={styles.swipeContentContainerStyle}
-                            leftButtons={leftButton}
+                            leftButtons={leftButton(onderwerp.promotor)}
                             key={i}
                             rightButtons={rightButton(i)}
                         >

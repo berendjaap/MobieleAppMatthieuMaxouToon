@@ -40,6 +40,7 @@ export default function App() {
         });
     }
         return (
+
             <HomeStack
                 options={{
                     headerShown: false,
