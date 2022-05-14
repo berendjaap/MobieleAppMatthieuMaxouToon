@@ -18,7 +18,7 @@ import axios from "axios";
 import deviceStorage from "./app/services/deviceStorage";
 
 //const Stack = createStackNavigator();
-
+//const URL = "192.168.178.181";
 export default function App() {
 
     const [jwt, setJwt] = React.useState(false);

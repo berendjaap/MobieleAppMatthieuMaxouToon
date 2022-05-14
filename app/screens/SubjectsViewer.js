@@ -17,6 +17,7 @@ import React, {useEffect, useState} from 'react';
 import DeviceStorage from "../services/deviceStorage";
 import deviceStorage from "../services/deviceStorage";
 import stringifySafe from "react-native/Libraries/Utilities/stringifySafe";
+import NetworkService from "../network/NetworkService";
 
 
 export default function SubjectsViewer({navigation}) {
@@ -27,11 +28,8 @@ export default function SubjectsViewer({navigation}) {
 
     useEffect(()=>{
             const getOnderwerpen = async () => {
-                const config = {
-                    headers: { Authorization: "Bearer " + await deviceStorage.loadJWT()},
-                    params: { mail : await deviceStorage.loadMail() }
-                };
-                axios.get('http://192.168.137.1:8080/api/v1/subject/targetsubjects', config).then(response => {
+                NetworkService.getTargetSubjects()
+                .then(response => {
                     setOnderwerpen(response.data);
                 })
             };getOnderwerpen();

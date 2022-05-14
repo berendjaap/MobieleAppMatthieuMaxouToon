@@ -8,8 +8,7 @@ import {
     Platform,
     ScrollView,
     Clipboard,
-    Alert,
-    navigation
+    Alert
 } from "react-native";
 import axios from "axios";
 import deviceStorage from "../services/deviceStorage";
@@ -18,18 +17,19 @@ import React, {useEffect,useState} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-async function SubjectDetails({navigation}) {
+async function SubjectDetails() {
     const [onderwerpen, setOnderwerpen] = useState([]);
 
 
     useEffect(() => {
         const getOnderwerp = async () => {
             console.log("voor versturen.");
-            console.log(await deviceStorage.loadSubject())
-            axios.get('http://192.168.137.1:8080/api/v1/subject/subjectdetails', {
+            //console.log(await deviceStorage.loadSubject())
+            await axios.get('http://192.168.137.1:8080/api/v1/subject/subjectdetails', {
                 headers: { 'Authorization': "Bearer " + await deviceStorage.loadJWT()},
-                params: { subjectName: await AsyncStorage.getItem('subject') }
+                params: { subjectName: await deviceStorage.loadSubject() }
             }).then(response => {
+                console.log(response.data);
                 setOnderwerpen(response.data);
             })
         };getOnderwerp();
@@ -39,12 +39,12 @@ async function SubjectDetails({navigation}) {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.containerExtended}>
-                {onderwerpen.map( (onderwerp,i) =>
+                onderwerpen.map( (onderwerp,i) =>
                     <Text key={i} style={styles.title}>
-                        {onderwerp.name}
+                        {onderwerpen.name}
                     </Text>,
                     <Text key={i} style={styles.text}>
-                        {onderwerp.description}
+                        {onderwerpen.description}
                     </Text>
                 )}
             </View>

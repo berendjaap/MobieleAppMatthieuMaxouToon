@@ -2,6 +2,15 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 const deviceStorage = {
+    async removeItem(key) {
+        try {
+            await AsyncStorage.removeItem(key);
+            return true;
+        }
+        catch(exception) {
+            return false;
+        }
+    },
     async saveSubjectName(value){
         try{
             await AsyncStorage.setItem('subjectName', value);

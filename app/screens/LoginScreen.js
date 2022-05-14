@@ -23,6 +23,7 @@ import stringifySafe from "react-native/Libraries/Utilities/stringifySafe";
 import deviceStorage from '../services/deviceStorage'
 import App from "../../App";
 import DeviceStorage from "../services/deviceStorage";
+import NetworkService from "../network/NetworkService";
 //import {NavigationActions as navigation} from "react-navigation";
 const state = {
     email: '',
@@ -40,7 +41,7 @@ function LoginScreen({navigation}) { //extends Component {
                     password: '',
                     error: ''
                 }
-
+                deviceStorage.removeItem("token")
                 //this.loginUser = this.loginUser.bind(this);
                 //this.onLoginFail = this.onLoginFail.bind(this);
             };constructor();
@@ -51,8 +52,18 @@ function LoginScreen({navigation}) { //extends Component {
         const [password, setPasswordText] = React.useState(false);
 
         const loginUser  = () => {
-            console.log(username);
-            axios.post('http://192.168.137.1:8080/api/auth/login', {
+            NetworkService.login(username, password).then(r=>{
+                navigation.navigate('SubjectViewer');
+            }
+
+            )
+                .catch((error) => {
+                    console.log(error);
+                    LoginScreen.onLoginFail();
+                });
+            //if (bool===true) {navigation.navigate('SubjectViewer');}
+            /*console.log(username);
+            axios.post('http://192.168.178.181:8080/api/auth/login', {
                 username: username,
                 password: password
             })
@@ -71,7 +82,7 @@ function LoginScreen({navigation}) { //extends Component {
                 .catch((error) => {
                     console.log(error);
                     onLoginFail();
-                });
+                });*/
         };
         const onLoginFail = () => {
             this.state.error = 'Login Failed';
