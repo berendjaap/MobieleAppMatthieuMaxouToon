@@ -23,8 +23,13 @@ export default function BoostStudent({navigation}) {
     const [studentenEerste,setStudentenEerste] = useState([]);
     const [studentenTweede,setStudentenTweede] = useState([]);
     const [studentenDerde,setStudentenDerde] = useState([]);
-
+    let bool;
+    if (navigation.getParam("geboostVoor")===0) {
+        bool = true;
+    }
+    else bool = false;
     let subject = navigation.getParam("name");
+    console.log(navigation)
 
     useEffect(() => {
         const getStudenten = async () => {
@@ -43,43 +48,114 @@ export default function BoostStudent({navigation}) {
         await NetworkService.postBoostStudent(subject, email);
     }
 
-    return (
-        <SafeAreaView style={styles.container}>
-            <ScrollView style={styles.scrollView}>
-                <View style={styles.containerExtended}>
-                    <Text style={styles.subTitle}>Eerste keuze</Text>
-                    {studentenEerste.map( (studentEerste) =>
-                        <View>
-                            <Text style={styles.text}>
-                                { studentEerste.username}
-                                {"\t\t\t\t"}
-                                <TouchableOpacity
-                                    onPress={()=>handleBoost(studentEerste.email)}>
-                                    <Icon name="totop" size={20} color="#004070" />
-                                </TouchableOpacity>
-                            </Text>
-                        </View>
-                    )}
-                    <Text style={styles.subTitle}>tweede keuze</Text>
-                    {studentenTweede.map( (studentTweede) =>
-                        <View>
-                            <Text style={styles.text}>
-                                {studentTweede.username}
-                            </Text>
-                        </View>
-                    )}
-                    <Text style={styles.subTitle}>derde keuze</Text>
-                    {studentenDerde.map( (student) =>
-                        <View>
-                            <Text style={styles.text}>
-                                {student.username}
-                            </Text>
-                        </View>
-                    )}
-                </View>
-            </ScrollView>
-        </SafeAreaView>
-    );
+    const buttonCheck = async (student) => {
+        let button;
+        if(student.geboostVoor.find(subject => subject.name === navigation.getParam("name")) ){
+            button = (
+                    <TouchableOpacity
+                        onPress={()=>handleBoost(student.email)}>
+                        <Icon name="totop" size={20} color="#004070" />
+                    </TouchableOpacity>
+                );
+        }
+        else{
+            button = (
+                    <Icon name="totop" size={20} color="#BEBEBE" />
+                );
+
+        }
+        return button;
+    }
+
+        return (
+            <SafeAreaView style={styles.container}>
+                <ScrollView style={styles.scrollView}>
+                    <View style={styles.containerExtended}>
+                        <Text style={styles.subTitle}>Eerste keuze</Text>
+                        {studentenEerste.map( (studentEerste) =>
+                            <View>
+                                <Text style={styles.text}>
+                                    { studentEerste.username}
+                                    {"\t\t\t\t"}
+                                    {buttonCheck(student)}
+                                </Text>
+                            </View>
+                        )}
+                        <Text style={styles.subTitle}>tweede keuze</Text>
+                        {studentenTweede.map( (studentTweede) =>
+                            <View>
+                                <Text style={styles.text}>
+                                    {studentTweede.username}
+                                    {"\t\t\t\t"}
+                                    {buttonCheck(student)}
+                                </Text>
+                            </View>
+                        )}
+                        <Text style={styles.subTitle}>derde keuze</Text>
+                        {studentenDerde.map( (student) =>
+                            <View>
+                                <Text style={styles.text}>
+                                    {student.username}
+                                    {"\t\t\t\t"}
+                                    {buttonCheck(student)}
+                                </Text>
+                            </View>
+                        )}
+                    </View>
+                </ScrollView>
+            </SafeAreaView>
+        );
+    /*
+    else {
+        return (
+            <SafeAreaView style={styles.container}>
+                <ScrollView style={styles.scrollView}>
+                    <View style={styles.containerExtended}>
+                        <Text style={styles.subTitle}>Eerste keuze</Text>
+                        {studentenEerste.map( (studentEerste) =>
+                            <View>
+                                <Text style={styles.text}>
+                                    { studentEerste.username}
+                                    {"\t\t\t\t"}
+                                    <TouchableOpacity
+                                        onPress={()=>handleBoost(studentEerste.email)}>
+                                        <Icon name="totop" size={20} color="#004070" />
+                                    </TouchableOpacity>
+                                </Text>
+                            </View>
+                        )}
+                        <Text style={styles.subTitle}>tweede keuze</Text>
+                        {studentenTweede.map( (studentTweede) =>
+                            <View>
+                                <Text style={styles.text}>
+                                    {studentTweede.username}
+                                    {"\t\t\t\t"}
+                                    <TouchableOpacity
+                                        onPress={()=>handleBoost(studentTweede.email)}>
+                                        <Icon name="totop" size={20} color="#004070" />
+                                    </TouchableOpacity>
+                                </Text>
+                            </View>
+                        )}
+                        <Text style={styles.subTitle}>derde keuze</Text>
+                        {studentenDerde.map( (studentDerde) =>
+                            <View>
+                                <Text style={styles.text}>
+                                    {studentDerde.username}
+                                    {"\t\t\t\t"}
+                                    <TouchableOpacity
+                                        onPress={()=>handleBoost(studentDerde.email)}>
+                                        <Icon name="totop" size={20} color="#004070" />
+                                    </TouchableOpacity>
+                                </Text>
+                            </View>
+                        )}
+                    </View>
+                </ScrollView>
+            </SafeAreaView>
+        );
+    }*/
+
 }
 
 const styles = StyleSheet.create({
