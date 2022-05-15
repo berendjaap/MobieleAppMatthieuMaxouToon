@@ -40,7 +40,7 @@ class NetworkService {
         const url = 'http://'+BASE_URL+':8080/api/v1/subject/subjectsprom';
         return await axios.get(url, config)
     }
-    async postBoostStudent(){
+    async postBoostStudent(subjectName, studentMail){
         const config = {
             headers: { Authorization: "Bearer " + await deviceStorage.loadJWT() },
             params: { subjectName : subjectName, studentMail: studentMail }
@@ -57,6 +57,14 @@ class NetworkService {
         };
 
         return axios.get("http://"+BASE_URL+":8080/api/v1/person/studentenpersubkeuze", config);
+    }
+    async getUser(mail) {
+        const config = {
+            headers: { Authorization: "Bearer " + await deviceStorage.loadJWT() },
+            params: { mail: mail}
+        };
+
+        return axios.get("http://"+BASE_URL+":8080/api/v1/person/getuser", config);
     }
 }
 
