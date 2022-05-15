@@ -9,6 +9,7 @@ import SubjectsViewerPromotoren from '../screens/SubjectsViewerPromotoren';
 import SubjectDetails from "../screens/SubjectDetails";
 import BoostStudent from "../screens/BoostStudent";
 import SubjectsViewerBedrijf from "../screens/SubjectsViewerBedrijf";
+import SubjectsViewerCoordinator from "../screens/SubjectsViewerCoordinator";
 
 const screens = {
 
@@ -32,6 +33,12 @@ const screens = {
     },
     SubjectsViewerBedrijf: {
         screen: SubjectsViewerBedrijf,
+        navigationOptions: {
+            headerShown:false
+        }
+    },
+    SubjectsViewerCoordinator: {
+        screen: SubjectsViewerCoordinator,
         navigationOptions: {
             headerShown:false
         }

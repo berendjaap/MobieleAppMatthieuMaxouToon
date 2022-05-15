@@ -48,6 +48,15 @@ class NetworkService {
         const url = 'http://'+BASE_URL+':8080/api/v1/subject/onderwerpperbedrijf';
         return await axios.get(url, config)
     }
+    async getTargetSubjectsCoordinator(){
+        const config = {
+            headers: { Authorization: "Bearer " + await deviceStorage.loadJWT()},
+            params: { mail : await deviceStorage.loadMail() }
+        };
+        const url = 'http://'+BASE_URL+':8080/api/v1/subject/getAllTargetSubs';
+        return await axios.get(url, config)
+    }
+
     async postBoostStudent(subjectName, studentMail){
         const config = {
             headers: { Authorization: "Bearer " + await deviceStorage.loadJWT() },

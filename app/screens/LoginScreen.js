@@ -57,6 +57,7 @@ function LoginScreen({navigation}) { //extends Component {
                 if (resp.includes("ROLE_STUDENT")) navigation.navigate("SubjectViewer")
                 else if (resp.includes("ROLE_PROMOTOR")) navigation.navigate("SubjectsViewerPromotoren")
                 else if (resp.includes("ROLE_BEDRIJF")) navigation.navigate("SubjectsViewerBedrijf")
+                else if (resp.includes("ROLE_COORDINATOR")) navigation.navigate("SubjectsViewerCoordinator")
             })
                 .catch((error) => {
                     console.log(error);
