@@ -6,16 +6,10 @@ import {
     StatusBar,
     View,
     Platform,
-    ScrollView,
-    Clipboard,
-    Alert
+    ScrollView
 } from "react-native";
-import axios from "axios";
-import deviceStorage from "../services/deviceStorage";
 import React, {useEffect,useState} from "react";
-import {useRoute} from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import NetworkService from "../network/NetworkService";
+import NetworkService from "../services/NetworkService";
 import Icon from "react-native-vector-icons/AntDesign";
 
 
@@ -23,13 +17,10 @@ export default function BoostStudent({navigation}) {
     const [studentenEerste,setStudentenEerste] = useState([]);
     const [studentenTweede,setStudentenTweede] = useState([]);
     const [studentenDerde,setStudentenDerde] = useState([]);
-    let bool;
-    if (navigation.getParam("geboostVoor")===0) {
-        bool = true;
-    }
-    else bool = false;
-    let subject = navigation.getParam("name");
-    console.log(navigation)
+
+
+    let subjectNaam = navigation.getParam("name");
+
 
     useEffect(() => {
         const getStudenten = async () => {
@@ -45,12 +36,13 @@ export default function BoostStudent({navigation}) {
         },[]
     )
     const handleBoost = async (email) => {
-        await NetworkService.postBoostStudent(subject, email);
+        await NetworkService.postBoostStudent(subjectNaam, email);
     }
 
     const buttonCheck = async (student) => {
         let button;
-        if(student.geboostVoor.find(subject => subject.name === navigation.getParam("name")) ){
+        //let boostedFor = student.geboostVoor;
+        if(student.find(subject => subject.name == subjectNaam) !== null){
             button = (
                     <TouchableOpacity
                         onPress={()=>handleBoost(student.email)}>
@@ -75,9 +67,9 @@ export default function BoostStudent({navigation}) {
                         {studentenEerste.map( (studentEerste) =>
                             <View>
                                 <Text style={styles.text}>
-                                    { studentEerste.username}
+                                    {studentEerste.username}
                                     {"\t\t\t\t"}
-                                    {buttonCheck(student)}
+                                    {buttonCheck(studentEerste)}
                                 </Text>
                             </View>
                         )}
@@ -87,53 +79,7 @@ export default function BoostStudent({navigation}) {
                                 <Text style={styles.text}>
                                     {studentTweede.username}
                                     {"\t\t\t\t"}
-                                    {buttonCheck(student)}
-                                </Text>
-                            </View>
-                        )}
-                        <Text style={styles.subTitle}>derde keuze</Text>
-                        {studentenDerde.map( (student) =>
-                            <View>
-                                <Text style={styles.text}>
-                                    {student.username}
-                                    {"\t\t\t\t"}
-                                    {buttonCheck(student)}
-                                </Text>
-                            </View>
-                        )}
-                    </View>
-                </ScrollView>
-            </SafeAreaView>
-        );
-    /*
-    else {
-        return (
-            <SafeAreaView style={styles.container}>
-                <ScrollView style={styles.scrollView}>
-                    <View style={styles.containerExtended}>
-                        <Text style={styles.subTitle}>Eerste keuze</Text>
-                        {studentenEerste.map( (studentEerste) =>
-                            <View>
-                                <Text style={styles.text}>
-                                    { studentEerste.username}
-                                    {"\t\t\t\t"}
-                                    <TouchableOpacity
-                                        onPress={()=>handleBoost(studentEerste.email)}>
-                                        <Icon name="totop" size={20} color="#004070" />
-                                    </TouchableOpacity>
-                                </Text>
-                            </View>
-                        )}
-                        <Text style={styles.subTitle}>tweede keuze</Text>
-                        {studentenTweede.map( (studentTweede) =>
-                            <View>
-                                <Text style={styles.text}>
-                                    {studentTweede.username}
-                                    {"\t\t\t\t"}
-                                    <TouchableOpacity
-                                        onPress={()=>handleBoost(studentTweede.email)}>
-                                        <Icon name="totop" size={20} color="#004070" />
-                                    </TouchableOpacity>
+                                    {buttonCheck(studentTweede)}
                                 </Text>
                             </View>
                         )}
@@ -143,10 +89,7 @@ export default function BoostStudent({navigation}) {
                                 <Text style={styles.text}>
                                     {studentDerde.username}
                                     {"\t\t\t\t"}
-                                    <TouchableOpacity
-                                        onPress={()=>handleBoost(studentDerde.email)}>
-                                        <Icon name="totop" size={20} color="#004070" />
-                                    </TouchableOpacity>
+                                    {buttonCheck(studentDerde)}
                                 </Text>
                             </View>
                         )}
@@ -154,8 +97,6 @@ export default function BoostStudent({navigation}) {
                 </ScrollView>
             </SafeAreaView>
         );
-    }*/
-
 }
 
 const styles = StyleSheet.create({
@@ -163,14 +104,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#d4e7f3',
-        //alignItems: 'center',
-        //justifyContent: 'center',
     },
 
     containerExtended: {
         flex: 1,
         backgroundColor: '#d4e7f3',
-        //alignItems: 'center',
         paddingTop: Platform.OS === "android" ?StatusBar.currentHeight:0
     },
     title: {

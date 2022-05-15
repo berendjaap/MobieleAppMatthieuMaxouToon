@@ -1,20 +1,13 @@
 import {
     StyleSheet,
-    TouchableOpacity,
     Text,
     SafeAreaView,
     StatusBar,
     View,
     Platform,
-    ScrollView,
-    Clipboard,
-    Alert
+    ScrollView
 } from "react-native";
-import axios from "axios";
-import deviceStorage from "../services/deviceStorage";
 import React, {useEffect,useState} from "react";
-import {useRoute} from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
 export default function SubjectDetails({navigation}) {
@@ -100,14 +93,11 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#d4e7f3',
-        //alignItems: 'center',
-        //justifyContent: 'center',
     },
 
     containerExtended: {
         flex: 1,
         backgroundColor: '#d4e7f3',
-        //alignItems: 'center',
         paddingTop: Platform.OS === "android" ?StatusBar.currentHeight:0
     },
     title: {

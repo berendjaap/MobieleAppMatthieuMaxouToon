@@ -14,17 +14,12 @@ import {
 import Icon from "react-native-vector-icons/AntDesign";
 import axios from "axios";
 import React, {useEffect, useState} from 'react';
-import DeviceStorage from "../services/deviceStorage";
-import deviceStorage from "../services/deviceStorage";
-import stringifySafe from "react-native/Libraries/Utilities/stringifySafe";
-import NetworkService from "../network/NetworkService";
+import NetworkService from "../services/NetworkService";
 
 
 export default function SubjectsViewer({navigation}) {
 
     const [onderwerpen, setOnderwerpen] = useState([]);
-    const [subject, setSubject]= useState('');
-    let [subjectDescription, setSubjectDescriptionText]= React.useState(false);
 
     useEffect(()=>{
             const getOnderwerpen = async () => {
@@ -36,11 +31,10 @@ export default function SubjectsViewer({navigation}) {
         },[]
     )
 
-
-
     const onPressHandler = async (i) => {
         navigation.navigate("SubjectDetails",onderwerpen[i]);
     }
+
     const leftButton = (promotor) => (
         <SwipeButtonsContainer
             style={{
@@ -63,6 +57,7 @@ export default function SubjectsViewer({navigation}) {
             </TouchableOpacity>
         </SwipeButtonsContainer>
     );
+
     const rightButton = (i) => (
         <SwipeButtonsContainer
             style={{

@@ -1,9 +1,8 @@
-import RequestService from './RequestService'
-import axios from "axios";
-import deviceStorage from "../services/deviceStorage";
-import LoginScreen from "../screens/LoginScreen";
+import deviceStorage from "./deviceStorage";
 import React from 'react';
+import axios from "axios";
 
+//Aan te passen naar IP-adres van de machine
 const BASE_URL = "192.168.137.1";
 
 
@@ -24,6 +23,7 @@ class NetworkService {
         return await axios.post(url, {username: username, password: password })
 
     }
+
     async getTargetSubjects(){
         const config = {
             headers: { Authorization: "Bearer " + await deviceStorage.loadJWT()},
@@ -32,6 +32,7 @@ class NetworkService {
         const url = 'http://'+BASE_URL+':8080/api/v1/subject/targetsubjects';
         return await axios.get(url, config)
     }
+
     async getTargetSubjectsPromotor(){
         const config = {
             headers: { Authorization: "Bearer " + await deviceStorage.loadJWT()},
@@ -40,7 +41,8 @@ class NetworkService {
         const url = 'http://'+BASE_URL+':8080/api/v1/subject/subjectsprom';
         return await axios.get(url, config)
     }
-    async getTargetSubjectsPromotor(){
+
+    async getTargetSubjectsBedrijf(){
         const config = {
             headers: { Authorization: "Bearer " + await deviceStorage.loadJWT()},
             params: { mail : await deviceStorage.loadMail() }
@@ -48,6 +50,7 @@ class NetworkService {
         const url = 'http://'+BASE_URL+':8080/api/v1/subject/onderwerpperbedrijf';
         return await axios.get(url, config)
     }
+
     async getTargetSubjectsCoordinator(){
         const config = {
             headers: { Authorization: "Bearer " + await deviceStorage.loadJWT()},
@@ -62,26 +65,15 @@ class NetworkService {
             headers: { Authorization: "Bearer " + await deviceStorage.loadJWT() },
             params: { subjectName : subjectName, studentMail: studentMail }
         };
-
         const data = {};
-
-        return axios.post("http://"+BASE_URL+":8080/api/v1/person/boost",data, config );
+        return await axios.post("http://"+BASE_URL+":8080/api/v1/person/boost",data, config );
     }
     async getSperSub(subjectName) {
         const config = {
             headers: { Authorization: "Bearer " + await deviceStorage.loadJWT() },
             params: { subjectName : subjectName }
         };
-
-        return axios.get("http://"+BASE_URL+":8080/api/v1/person/studentenpersubkeuze", config);
-    }
-    async getUser(mail) {
-        const config = {
-            headers: { Authorization: "Bearer " + await deviceStorage.loadJWT() },
-            params: { mail: mail}
-        };
-
-        return axios.get("http://"+BASE_URL+":8080/api/v1/person/getuser", config);
+        return await axios.get("http://"+BASE_URL+":8080/api/v1/person/studentenpersubkeuze", config);
     }
 }
 

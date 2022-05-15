@@ -11,20 +11,7 @@ const deviceStorage = {
             return false;
         }
     },
-    async saveSubjectName(value){
-        try{
-            await AsyncStorage.setItem('subjectName', value);
-        }catch(error){
-            console.log('AsyncStorage Error: ' + error.message);
-        }
-    },
-    async saveSubjectDescription(value){
-        try{
-            await AsyncStorage.setItem("subjectDescription", value);
-        }catch(error){
-            console.log('AsyncStorage Error: ' + error.message);
-        }
-    },
+
     async saveToken(key, value) {
         try {
             await AsyncStorage.setItem(key, value);
@@ -32,30 +19,7 @@ const deviceStorage = {
             console.log('AsyncStorage Error: ' + error.message);
         }
     },
-    async loadRole() {
-        try {
-            const value = await AsyncStorage.getItem('role');
-            if (value !== null) {
-                return value;
-            } else {
-                return '';
-            }
-        } catch (error) {
-            console.log('AsyncStorage Error: ' + error.message);
-        }
-    },
-    async loadSubjectDescription() {
-        try {
-            const value = await AsyncStorage.getItem('subjectDescription');
-            if (value !== null) {
-                return value;
-            } else {
-                return '';
-            }
-        } catch (error) {
-            console.log('AsyncStorage Error: ' + error.message);
-        }
-    },
+
     async loadJWT() {
         try {
             const value = await AsyncStorage.getItem('token');
@@ -68,6 +32,7 @@ const deviceStorage = {
             console.log('AsyncStorage Error: ' + error.message);
         }
     },
+
     async loadMail() {
         try {
             const value = await AsyncStorage.getItem('mail');
@@ -80,18 +45,7 @@ const deviceStorage = {
             console.log('AsyncStorage Error: ' + error.message);
         }
     },
-    async loadSubject() {
-        try {
-            const value = await AsyncStorage.getItem('subject');
-            if (value !== null) {
-                return value;
-            } else {
-                return '';
-            }
-        } catch (error) {
-            console.log('AsyncStorage Error: ' + error.message);
-        }
-    },
+
     async deleteJWT() {
         try{
             await AsyncStorage.removeItem('token')

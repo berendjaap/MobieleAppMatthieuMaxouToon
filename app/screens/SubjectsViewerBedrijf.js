@@ -7,28 +7,21 @@ import {
     StatusBar,
     View,
     Platform,
-    ScrollView,
-    Clipboard,
-    Alert
+    ScrollView
 } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
-import axios from "axios";
 import React, {useEffect, useState} from 'react';
-import DeviceStorage from "../services/deviceStorage";
-import deviceStorage from "../services/deviceStorage";
-import stringifySafe from "react-native/Libraries/Utilities/stringifySafe";
-import NetworkService from "../network/NetworkService";
+import NetworkService from "../services/NetworkService";
 
 
 export default function SubjectsViewerBedrijf({navigation}) {
 
     const [onderwerpen, setOnderwerpen] = useState([]);
-    const [subject, setSubject]= useState('');
-    let [subjectDescription, setSubjectDescriptionText]= React.useState(false);
+
 
     useEffect(()=>{
             const getOnderwerpen = async () => {
-                NetworkService.getTargetSubjectsPromotor()
+                NetworkService.getTargetSubjectsBedrijf()
                     .then(response => {
                         setOnderwerpen(response.data);
                     })

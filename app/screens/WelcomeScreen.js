@@ -1,24 +1,15 @@
-import {  } from 'expo-status-bar';
-import react from 'react';
-import { StyleSheet, Text, View, SafeAreaView, StatusBar, TextInput, Image,TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, StatusBar } from 'react-native';
 import { Platform } from 'react-native-web';
-import Icon from 'react-native-vector-icons/AntDesign';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
-import * as SecureStore from "expo-secure-store";
-import stringifySafe from "react-native/Libraries/Utilities/stringifySafe";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 
-
-function WelcomeScreen({navigation}) {
+function WelcomeScreen() {
 
   return(
       <SafeAreaView  style={styles.container}>
         <View>
           <Text>
-            Goed gewerkt!
+            Seems like something went wrong!
           </Text>
         </View>
       </SafeAreaView>

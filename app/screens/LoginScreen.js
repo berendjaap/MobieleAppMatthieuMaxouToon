@@ -1,5 +1,5 @@
 import {  } from 'expo-status-bar';
-import React, {Component, useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {
     StyleSheet,
     Text,
@@ -7,31 +7,17 @@ import {
     SafeAreaView,
     StatusBar,
     TextInput,
-    Image,
     TouchableOpacity
 } from 'react-native';
 import { Platform } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import 'react-native-gesture-handler';
-import axios from 'axios';
-import * as SecureStore from 'expo-secure-store';
-import * as Keychain from 'react-native-keychain';
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import stringifySafe from "react-native/Libraries/Utilities/stringifySafe";
-import deviceStorage from '../services/deviceStorage'
-import App from "../../App";
-import DeviceStorage from "../services/deviceStorage";
-import NetworkService from "../network/NetworkService";
-//import {NavigationActions as navigation} from "react-navigation";
-const state = {
-    email: '',
-    password: '',
-    error: '',
-    loading: false
-};
-function LoginScreen({navigation}) { //extends Component {
+import deviceStorage from '../services/deviceStorage';
+import NetworkService from "../services/NetworkService";
+
+
+
+function LoginScreen({navigation}) {
 
 
     useEffect(() =>{
@@ -42,8 +28,6 @@ function LoginScreen({navigation}) { //extends Component {
                     error: ''
                 }
                 deviceStorage.removeItem("token")
-                //this.loginUser = this.loginUser.bind(this);
-                //this.onLoginFail = this.onLoginFail.bind(this);
             };constructor();
         },[]
     )
@@ -58,6 +42,7 @@ function LoginScreen({navigation}) { //extends Component {
                 else if (resp.includes("ROLE_PROMOTOR")) navigation.navigate("SubjectsViewerPromotoren")
                 else if (resp.includes("ROLE_BEDRIJF")) navigation.navigate("SubjectsViewerBedrijf")
                 else if (resp.includes("ROLE_COORDINATOR")) navigation.navigate("SubjectsViewerCoordinator")
+                else navigation.navigate("WelcomeScreen")
             })
                 .catch((error) => {
                     console.log(error);
@@ -73,9 +58,6 @@ function LoginScreen({navigation}) { //extends Component {
 
         return(
             <SafeAreaView style={styles.container}>
-                {/* <Image
-                source={require('./app/assets/KULeuvenlogo.png')}
-                /> */}
                 <View
                     style={{
                         flex:0.5,
@@ -126,7 +108,6 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#d4e7f3',
       alignItems: 'center',
-      //justifyContent: 'center',
     },
     containerExtended: {
       paddingTop: Platform.OS === "android" ?StatusBar.currentHeight:0
@@ -134,7 +115,6 @@ const styles = StyleSheet.create({
     input: {
       height: 40,
       margin: 2,
-      // borderWidth: 1,
       padding: 10
     },
     searchIcon: {
@@ -143,7 +123,6 @@ const styles = StyleSheet.create({
     naastElkaar: {
       // flex: 1,
       flexDirection: "row",
-      //justifyContent: "center",
     },
     container2: {
       backgroundColor: '#d4e7f3',
