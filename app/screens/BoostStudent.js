@@ -39,26 +39,6 @@ export default function BoostStudent({navigation}) {
         await NetworkService.postBoostStudent(subjectNaam, email);
     }
 
-    const buttonCheck = async (student) => {
-        let button;
-        //let boostedFor = student.geboostVoor;
-        if(student.find(subject => subject.name == subjectNaam) !== null){
-            button = (
-                    <TouchableOpacity
-                        onPress={()=>handleBoost(student.email)}>
-                        <Icon name="totop" size={20} color="#004070" />
-                    </TouchableOpacity>
-                );
-        }
-        else{
-            button = (
-                    <Icon name="totop" size={20} color="#BEBEBE" />
-                );
-
-        }
-        return button;
-    }
-
         return (
             <SafeAreaView style={styles.container}>
                 <ScrollView style={styles.scrollView}>
@@ -68,8 +48,6 @@ export default function BoostStudent({navigation}) {
                             <View>
                                 <Text style={styles.text}>
                                     {studentEerste.username}
-                                    {"\t\t\t\t"}
-                                    {buttonCheck(studentEerste)}
                                 </Text>
                             </View>
                         )}
@@ -78,8 +56,6 @@ export default function BoostStudent({navigation}) {
                             <View>
                                 <Text style={styles.text}>
                                     {studentTweede.username}
-                                    {"\t\t\t\t"}
-                                    {buttonCheck(studentTweede)}
                                 </Text>
                             </View>
                         )}
@@ -88,8 +64,6 @@ export default function BoostStudent({navigation}) {
                             <View>
                                 <Text style={styles.text}>
                                     {studentDerde.username}
-                                    {"\t\t\t\t"}
-                                    {buttonCheck(studentDerde)}
                                 </Text>
                             </View>
                         )}
