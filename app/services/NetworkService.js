@@ -3,7 +3,7 @@ import React from 'react';
 import axios from "axios";
 
 //Aan te passen naar IP-adres van de machine
-const BASE_URL = "192.168.137.1";
+const BASE_URL = "192.168.1.59";
 
 
 class NetworkService {

@@ -30,7 +30,7 @@ export default function SubjectDetails({navigation}) {
     if (navigation.getParam("copromotoren").length !=0 ){
         copromotoren = (
             <View >
-                {navigation.getParam("campussen").map(function(d, idx){
+                {navigation.getParam("copromotoren").map(function(d, idx){
                     return (<Text key={idx} style={styles.text}>{d.name}</Text>)
                 })}
             </View>
