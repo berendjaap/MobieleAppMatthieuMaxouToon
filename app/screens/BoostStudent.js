@@ -43,7 +43,7 @@ export default function BoostStudent({navigation}) {
             <SafeAreaView style={styles.container}>
                 <ScrollView style={styles.scrollView}>
                     <View style={styles.containerExtended}>
-                        <Text style={styles.subTitle}>Eerste keuze</Text>
+                        <Text style={styles.subTitle}>Chose subject as first choice:</Text>
                         {studentenEerste.map( (studentEerste) =>
                             <View>
                                 <Text style={styles.text}>
@@ -51,7 +51,7 @@ export default function BoostStudent({navigation}) {
                                 </Text>
                             </View>
                         )}
-                        <Text style={styles.subTitle}>tweede keuze</Text>
+                        <Text style={styles.subTitle}>Chose subject as second choice:</Text>
                         {studentenTweede.map( (studentTweede) =>
                             <View>
                                 <Text style={styles.text}>
@@ -59,7 +59,7 @@ export default function BoostStudent({navigation}) {
                                 </Text>
                             </View>
                         )}
-                        <Text style={styles.subTitle}>derde keuze</Text>
+                        <Text style={styles.subTitle}>Chose subject as third choice:</Text>
                         {studentenDerde.map( (studentDerde) =>
                             <View>
                                 <Text style={styles.text}>
